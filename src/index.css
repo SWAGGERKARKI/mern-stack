@@ -1,0 +1,13 @@
+.message-text {
+  color: white;
+}
+
+.message {
+  position: absolute;
+  background-color: rgb(91, 91, 91);
+  color: whitesmoke;
+  right: 100px;
+  top: 100px;
+  border-radius: 6px;
+  /* border: 1px solid red; */
+}
