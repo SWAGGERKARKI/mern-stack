@@ -51,7 +51,7 @@ function Home() {
 
       <Grid2 container spacing={2} mt={2}>
         {persons.map((person, index) =>
-          <Grid2 item xs={12} sm={6} md={4}>
+          <Grid2 item xs={12} sm={6} md={4} key={person._id}>
             <motion.div
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0, transition: { delay: index * 0.2, duration: 0.5 } }}
@@ -61,6 +61,7 @@ function Home() {
             >
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
+                  <Typography variant='h6'>Person {index < 9 ? '0' + (index + 1) : index + 1}</Typography>
                   <Typography variant='h6'>{person.name}</Typography>
                   <Typography variant='body2' color='text.secondary'>{person.email}</Typography>
                 </CardContent>
