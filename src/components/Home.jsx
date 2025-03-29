@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import EditPerson from './Edit.jsx';
+import PageWrapper from './PageWrapper.jsx';
 
 function Home() {
   const [persons, setPersons] = useState([]);
@@ -38,77 +39,79 @@ function Home() {
   };
 
   return (
-    <Container>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant='h5' fontWeight={700} color='primary'>Person List: {persons.length}</Typography>
-        <Button 
-          color='info' 
-          variant='contained' 
-          size='small'
-          onClick={() => navigate('/create')}
-        >+ Add Person</Button>
-      </div>     
+    <PageWrapper>
+      <Container>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant='h5' fontWeight={700} color='primary'>Person List: {persons.length}</Typography>
+          <Button 
+            color='info' 
+            variant='contained' 
+            size='small'
+            onClick={() => navigate('/create')}
+          >+ Add Person</Button>
+        </div>     
 
-      <Grid2 container spacing={2} mt={2}>
-        {persons.map((person, index) =>
-          <Grid2 item xs={12} sm={6} md={4} key={person._id}>
-            <motion.div
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0, transition: { delay: index * 0.2, duration: 0.5 } }}
-              // transition={{ delay: index * 0.1, duration: 0.3 }}
-              whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
-              whileTap={{ scale: 0.9, transition: { duration: 0.3 } }}
-            >
-              <Card sx={{ minWidth: 275 }}>
-                <CardContent>
-                  <Typography variant='h6'>Person {index < 9 ? '0' + (index + 1) : index + 1}</Typography>
-                  <Typography variant='h6'>{person.name}</Typography>
-                  <Typography variant='body2' color='text.secondary'>{person.email}</Typography>
-                </CardContent>
-                <CardActions>
-                  <IconButton 
-                    size='small'
-                    onClick={() => { setSelectedPerson(person._id); setOpenEdit(true)}}
-                  >
-                    <Edit color='info' />
-                  </IconButton>
-                  <Button
-                    size='small'
-                    variant='contained'
-                    color='error'
-                    onClick={() => { setSelectedPerson(person._id); setOpen(true); }}
-                    startIcon={<Delete />}
-                  >Delete</Button>
-                </CardActions>
-              </Card>
-            </motion.div>
-          </Grid2>
-        )}  
-      </Grid2>
+        <Grid2 container spacing={2} mt={2}>
+          {persons.map((person, index) =>
+            <Grid2 item xs={12} sm={6} md={4} key={person._id}>
+              <motion.div
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0, transition: { delay: index * 0.2, duration: 0.5 } }}
+                // transition={{ delay: index * 0.1, duration: 0.3 }}
+                whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
+                whileTap={{ scale: 0.9, transition: { duration: 0.3 } }}
+              >
+                <Card sx={{ minWidth: 275 }}>
+                  <CardContent>
+                    <Typography variant='h6'>Person {index < 9 ? '0' + (index + 1) : index + 1}</Typography>
+                    <Typography variant='h6'>{person.name}</Typography>
+                    <Typography variant='body2' color='text.secondary'>{person.email}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <IconButton 
+                      size='small'
+                      onClick={() => { setSelectedPerson(person._id); setOpenEdit(true); }}
+                    >
+                      <Edit color='info' />
+                    </IconButton>
+                    <Button
+                      size='small'
+                      variant='contained'
+                      color='error'
+                      onClick={() => { setSelectedPerson(person._id); setOpen(true); }}
+                      startIcon={<Delete />}
+                    >Delete</Button>
+                  </CardActions>
+                </Card>
+              </motion.div>
+            </Grid2>
+          )}  
+        </Grid2>
 
-      {/* Dialog before deletion */}
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Are you sure you want to delete?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Click Delete to confirm it.</DialogContentText>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button color='warning' onClick={() => { setOpen(false); handleDelete(); }}>Delete</Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
+        {/* Dialog before deletion */}
+        <Dialog open={open} onClose={() => setOpen(false)}>
+          <DialogTitle>Are you sure you want to delete?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Click Delete to confirm it.</DialogContentText>
+            <DialogActions>
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button color='warning' onClick={() => { setOpen(false); handleDelete(); }}>Delete</Button>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
 
-      {/* Dialog for edit person */}
-      {/* <Dialog open={openEdit} onClose={() => setOpenEdit(false)}>
-        <DialogTitle>This is edit modal</DialogTitle>
-        <DialogContent>
-          <DialogContentText></DialogContentText>
-          <DialogActions></DialogActions>
-        </DialogContent>
-      </Dialog> */}
+        {/* Dialog for edit person */}
+        {/* <Dialog open={openEdit} onClose={() => setOpenEdit(false)}>
+          <DialogTitle>This is edit modal</DialogTitle>
+          <DialogContent>
+            <DialogContentText></DialogContentText>
+            <DialogActions></DialogActions>
+          </DialogContent>
+        </Dialog> */}
 
-      <EditPerson open={openEdit} handleClose={() => setOpenEdit(false)} id={selectedPerson} />
-    </Container>
+        <EditPerson open={openEdit} handleClose={() => setOpenEdit(false)} id={selectedPerson} />
+      </Container>
+    </PageWrapper>
   );
 }
 

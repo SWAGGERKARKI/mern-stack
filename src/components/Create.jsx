@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import HomeIcon from "@mui/icons-material/Home";
 import { motion } from "motion/react";
+import PageWrapper from "./PageWrapper";
 
 function Create() {
   const [formData, setFormData] = useState({
@@ -48,65 +49,67 @@ function Create() {
   };
 
   return (
-    <Container sx={{ width: '500px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', marginBottom: '20px' }}>
-        <Button 
-          size="small" 
-          startIcon={<HomeIcon />} 
-          variant="outlined"
-          onClick={() => navigate('/')}
-        >Back to Home</Button>
-        
-        <Typography
-          variant="h5"
-          color="info"
-          fontWeight={700}
-        >Sign Up</Typography>
-      </div>
-
-      <form style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} onSubmit={handleSubmit}>
-        <TextField
-          type="text"
-          size="small"
-          label="name"
-          placeholder="ex: Bipana Khadka"
-          name="name"
-          onChange={handleChange}
-          value={formData.name}
-        />
-
-        <TextField
-          type="email"
-          size="small" 
-          label="email"
-          placeholder="example@gmail.com"
-          name="email"
-          onChange={handleChange}
-          value={formData.email}
-        />
-
-        <div style={{ display: 'flex', gap: '6px', marginTop: '20px' }}>
+    <PageWrapper>
+      <Container sx={{ width: '500px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', marginBottom: '20px' }}>
           <Button 
             size="small" 
-            variant="outlined" 
-            color="error"
-            onClick={handleReset}
-          >Reset</Button>
-
-          <Button
-            type="submit" 
-            size="small" 
-            variant="contained" 
-            sx={{ flex: '1' }}
-          >Submit</Button>
+            startIcon={<HomeIcon />} 
+            variant="outlined"
+            onClick={() => navigate('/')}
+          >Back to Home</Button>
+          
+          <Typography
+            variant="h5"
+            color="info"
+            fontWeight={700}
+          >Sign Up</Typography>
         </div>
-      </form>
 
-      
-      <div className="message">
-      </div>
-      
-    </Container>
+        <form style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} onSubmit={handleSubmit}>
+          <TextField
+            type="text"
+            size="small"
+            label="name"
+            placeholder="ex: Bipana Khadka"
+            name="name"
+            onChange={handleChange}
+            value={formData.name}
+          />
+
+          <TextField
+            type="email"
+            size="small" 
+            label="email"
+            placeholder="example@gmail.com"
+            name="email"
+            onChange={handleChange}
+            value={formData.email}
+          />
+
+          <div style={{ display: 'flex', gap: '6px', marginTop: '20px' }}>
+            <Button 
+              size="small" 
+              variant="outlined" 
+              color="error"
+              onClick={handleReset}
+            >Reset</Button>
+
+            <Button
+              type="submit" 
+              size="small" 
+              variant="contained" 
+              sx={{ flex: '1' }}
+            >Submit</Button>
+          </div>
+        </form>
+
+        
+        <div className="message">
+        </div>
+        
+      </Container>
+    </PageWrapper>
   );
 }
 

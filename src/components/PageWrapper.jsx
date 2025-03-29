@@ -10,9 +10,9 @@ function PageWrapper({ children }) {
   return(
     <motion.div
       variants={pageVariant}
-      initial={initial}
-      animate={animate}
-      exit={exit}
+      initial="initial"
+      animate="animate"
+      exit="exit"
     >
       {children}
     </motion.div>
