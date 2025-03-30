@@ -67,15 +67,17 @@ function Edit({ open, handleClose, id }) {
             />
           }
 
-          <TextField 
-            type="password"
-            label="password"
-            placeholder="A-Z a-z 0-9"
-            size="small"
-            onChange={handleChange}
-            name="password"
-            value={formData.password}
-          />
+          {formData.password &&
+            <TextField 
+              type="password"
+              label="password"
+              placeholder="A-Z a-z 0-9"
+              size="small"
+              onChange={handleChange}
+              name="password"
+              value={formData.password}
+            />
+          }
         </div>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
