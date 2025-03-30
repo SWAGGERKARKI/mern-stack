@@ -6,6 +6,7 @@ function Edit({ open, handleClose, id }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',
   });
 
   // fetching data
@@ -13,8 +14,8 @@ function Edit({ open, handleClose, id }) {
     axios
       .get(`http://localhost:5000/api/person/${id}`)
       .then((res) => {
-        const { name, email } = res.data;
-        setFormData(prevFormData => ({ ...prevFormData, name, email }));
+        const { name, email, password } = res.data;
+        setFormData(prevFormData => ({ ...prevFormData, name, email, password }));
       })
       .catch((err) => console.error(err));
   }, [id]);
@@ -65,6 +66,16 @@ function Edit({ open, handleClose, id }) {
               value={formData.email}
             />
           }
+
+          <TextField 
+            type="password"
+            label="password"
+            placeholder="A-Z a-z 0-9"
+            size="small"
+            onChange={handleChange}
+            name="password"
+            value={formData.password}
+          />
         </div>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

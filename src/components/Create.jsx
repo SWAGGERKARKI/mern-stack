@@ -9,6 +9,7 @@ function Create() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',
   });
 
   // create instance of useNavigate
@@ -83,6 +84,16 @@ function Create() {
           name="email"
           onChange={handleChange}
           value={formData.email}
+        />
+
+        <TextField 
+          type="password"
+          label="password"
+          placeholder="ex: A-Z, a-z, 0-9"
+          size="small"
+          name="password"
+          onChange={handleChange}
+          value={formData.password}
         />
 
         <div style={{ display: 'flex', gap: '6px', marginTop: '20px' }}>
