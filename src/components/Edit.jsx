@@ -1,6 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, InputAdornment, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Edit({ open, handleClose, id }) {
   const [formData, setFormData] = useState({
@@ -8,6 +9,9 @@ function Edit({ open, handleClose, id }) {
     email: '',
     password: '',
   });
+
+  // state for password seen icon
+  const [seePassword, setSeePassword] = useState(false);
 
   // fetching data
   useEffect(() => {
@@ -69,13 +73,24 @@ function Edit({ open, handleClose, id }) {
 
           {formData.password &&
             <TextField 
-              type="password"
+              type={seePassword ? "text" : "password"}
               label="password"
               placeholder="A-Z a-z 0-9"
               size="small"
               onChange={handleChange}
               name="password"
               value={formData.password}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" size="small" onClick={() => setSeePassword(!seePassword)}>
+                        {seePassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
           }
         </div>

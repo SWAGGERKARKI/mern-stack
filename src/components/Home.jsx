@@ -1,10 +1,11 @@
-import { Container, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Grid2, CardActions, Card, CardContent } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, Grid2, CardActions, Card, CardContent, Box } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import EditPerson from './Edit.jsx';
+import  LoginIcon  from '@mui/icons-material/Login';
 
 function Home() {
   const [persons, setPersons] = useState([]);
@@ -41,12 +42,27 @@ function Home() {
     <Container>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant='h5' fontWeight={700} color='primary'>Person List: {persons.length}</Typography>
-        <Button 
-          color='info' 
-          variant='contained' 
-          size='small'
-          onClick={() => navigate('/create')}
-        >+ Add Person</Button>
+
+        <Box>
+          <Button 
+            color='info' 
+            variant='contained' 
+            size='small'
+            onClick={() => navigate('/create')}
+          >+ Add Person</Button>
+
+          <Button 
+            variant='contained'
+            color='success'
+            size='small'
+            component={Link} 
+            to="/login"
+            sx={{ ml: '16px'}}
+            startIcon={<LoginIcon />}
+          >
+            Login
+          </Button>
+        </Box>
       </div>     
 
       <Grid2 container spacing={2} mt={2}>
@@ -71,6 +87,7 @@ function Home() {
                   >
                     <Edit color='info' />
                   </IconButton>
+
                   <Button
                     size='small'
                     variant='contained'
