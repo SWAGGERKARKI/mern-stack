@@ -1,4 +1,4 @@
-import { Button, Container, IconButton, TextField, Typography } from "@mui/material";
+import { Button, Container, FormControl, FormControlLabel, FormLabel, Radio, IconButton, RadioGroup, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { motion } from "motion/react";
 function Create() {
   const [formData, setFormData] = useState({
     name: '',
+    gender: '',
     email: '',
     password: '',
   });
@@ -19,6 +20,7 @@ function Create() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevFormData => ({ ...prevFormData, [name]: value}));
+    console.log(formData);
   };
 
   // after clicking submit button
@@ -75,6 +77,21 @@ function Create() {
           onChange={handleChange}
           value={formData.name}
         />
+
+        {/* Radio Input for Gender */}
+        <FormControl>
+          <FormLabel>Gender</FormLabel>
+          <RadioGroup
+            row
+            name="gender"
+            value={formData.gender}
+            onClick={handleChange}
+          >
+            <FormControlLabel control={<Radio />} label='Male' value={'male'} />
+            <FormControlLabel control={<Radio />} label='Female' value={'female'} />
+            <FormControlLabel control={<Radio />} label='Others' value={'others'} />
+          </RadioGroup>
+        </FormControl>
 
         <TextField
           type="email"

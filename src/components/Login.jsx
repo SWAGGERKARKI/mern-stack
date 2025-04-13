@@ -22,12 +22,13 @@ const Login = () => {
       await axios
         .post("http://localhost:5000/api/login", login)
         .then(res => {
-          const {message, authtoken, name, email} = res.data;
+          console.log(res.data);
+          const {message, authtoken, id} = res.data;
           if (authtoken) {
             localStorage.setItem('authtoken', authtoken); // store token in local storage
-            localStorage.setItem('name', name); // store name in local storage
+            localStorage.setItem('id', id); // store name in local storage
             setTimeout(() => {
-              navigate("/person/:id"); // navigate to home page after 1 seconds
+              navigate(`/person/${id}`); // navigate to home page after 1 seconds
             }, 1000);
           }
         })

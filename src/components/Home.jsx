@@ -9,7 +9,7 @@ import  LoginIcon  from '@mui/icons-material/Login';
 
 function Home() {
   const [persons, setPersons] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState('');
 
   // dialog variables for edit person
@@ -83,7 +83,11 @@ function Home() {
                 <CardActions>
                   <IconButton 
                     size='small'
-                    onClick={() => { setSelectedPerson(person._id); setOpenEdit(true)}}
+                    onClick={() => { 
+                      setSelectedPerson(person._id); 
+                      setOpenEdit(true); 
+                      setEdit(true);
+                    }}
                   >
                     <Edit color='info' />
                   </IconButton>
@@ -92,7 +96,11 @@ function Home() {
                     size='small'
                     variant='contained'
                     color='error'
-                    onClick={() => { setSelectedPerson(person._id); setOpen(true); }}
+                    onClick={() => { 
+                      setSelectedPerson(person._id); 
+                      setOpenEdit(true); 
+                      setEdit(false);
+                    }}
                     startIcon={<Delete />}
                   >Delete</Button>
                 </CardActions>
@@ -103,7 +111,7 @@ function Home() {
       </Grid2>
 
       {/* Dialog before deletion */}
-      <Dialog open={open} onClose={() => setOpen(false)}>
+      {/* <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Are you sure you want to delete?</DialogTitle>
         <DialogContent>
           <DialogContentText>Click Delete to confirm it.</DialogContentText>
@@ -112,7 +120,7 @@ function Home() {
             <Button color='warning' onClick={() => { setOpen(false); handleDelete(); }}>Delete</Button>
           </DialogActions>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
 
       {/* Dialog for edit person */}
       {/* <Dialog open={openEdit} onClose={() => setOpenEdit(false)}>
@@ -123,7 +131,20 @@ function Home() {
         </DialogContent>
       </Dialog> */}
 
-      <EditPerson open={openEdit} handleClose={() => setOpenEdit(false)} id={selectedPerson} />
+      {<Dialog open={openEdit} onClose={() => setOpenEdit(false)} fullWidth>
+          {edit ? 
+            <DialogTitle color="info" fontWeight={700}>Login to Edit</DialogTitle>
+            : <DialogTitle color="error" fontWeight={700}>Login to Delete</DialogTitle>
+          }
+          <DialogContent>
+            <DialogContentText>Login to edit the person.</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenEdit(false)}>Cancel</Button>
+            <Button onClick={() => navigate('/login')}>Login</Button>
+          </DialogActions>
+          </Dialog>
+        }
     </Container>
   );
 }

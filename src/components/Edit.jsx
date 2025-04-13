@@ -16,8 +16,13 @@ function Edit({ open, handleClose, id }) {
   // fetching data
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/person/${id}`)
+      .get(`http://localhost:5000/api/person/${id}`, {
+        headers: {
+          'Authorization': `${localStorage.getItem('authtoken')}`, // set token in header
+        }
+      })
       .then((res) => {
+        console.log('response data', res.data);
         const { name, email, password } = res.data;
         setFormData(prevFormData => ({ ...prevFormData, name, email, password }));
       })
