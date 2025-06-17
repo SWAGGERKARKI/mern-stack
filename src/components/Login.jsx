@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, Button, Typography, TextField } from '@mui/material';
+import { Container, Button, Typography, TextField, InputAdornment, IconButton } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import axios from 'axios'; // axios for sending request to server
 import { useNavigate } from 'react-router-dom'; // import useNavigate for navigating the path
@@ -10,6 +11,7 @@ const Login = () => {
     email: '',
     password: '',
   });
+  const [visible, setVisible] = useState(false); // state for password visibility
 
   // creating instance of useNavigate
   const navigate = useNavigate();
@@ -77,13 +79,24 @@ const Login = () => {
             />
     
             <TextField 
-              type="password"
+              type={visible ? "text" : "password"}
               label="password"
               placeholder="ex: A-Z, a-z, 0-9"
               size="small"
               name="password"
               onChange={handleChange}
               value={login.password}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton edge='end' size='small' onClick={() => setVisible(!visible)}>
+                        {visible ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
     
             <div style={{ display: 'flex', gap: '6px', marginTop: '20px' }}>
